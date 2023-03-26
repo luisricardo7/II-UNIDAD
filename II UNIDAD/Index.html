@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>II UNIDAD</title>
+</head>
+
+<body>
+    
+    <input id="horas" type="text" placeholder="Ingrese las horas">
+    <br>
+
+    <h2 id="lbl_resultado"></h2>
+
+    <br>
+    <button onclick="conversion()" >calcular</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+    
+    <script>
+
+        let modelo = null;
+
+        // esto es lo primeo que se ejecuta al cargar la pagina
+        ( async ()=>{
+
+            console.log('cargando modelo')
+
+            // "detetien" o "hace esperar" a que cargue por completo el modelo
+            modelo = await tf.loadLayersModel('./model.json')
+
+            console.log('modelo cargado correctamente')
+
+        })();
+
+
+        function conversion(){
+
+            const horas= document.getElementById('horas')
+            const minutos = document.getElementById('lbl_resultado')
+            
+            horas.value
+
+            //asegurarnos que el modelo ya está cargado
+            if( modelo != null){
+
+                const tensor = tf.tensor1d([parseInt(horas.value)])
+
+                let prediccion = modelo.predict(tensor).dataSync()
+                
+                prediccion = Math.round(prediccion)
+
+                minutos.innerHTML = `${horas.value} horas son ${prediccion} minutos `
+                
+
+            }else{
+                console.log('Intente mas tarde')
+            }
+
+        }
+
+    </script>
+
+    <br>
+    <br>
+    <input id="kilometros" type="text" placeholder="Ingrese los kilometros">
+    <br>
+
+    <h2 id="lbl_resultado1"></h2>
+
+    <br>
+    <button onclick="conversion1()" >calcular</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+
+    <script>
+
+        let modelo1 = null;
+
+        // esto es lo primeo que se ejecuta al cargar la pagina
+        ( async ()=>{
+
+        console.log('cargando modelo')
+
+        // "detetien" o "hace esperar" a que cargue por completo el modelo
+        modelo1 = await tf.loadLayersModel('./models/model.json')
+
+        console.log('modelo cargado correctamente')
+
+        })();
+
+
+        function conversion1(){
+
+        const kilometros= document.getElementById('kilometros')
+        const metros = document.getElementById('lbl_resultado1')
+        
+        kilometros.value 
+
+        //asegurarnos que el modelo ya está cargado
+            if( modelo1 != null){
+
+            const tensor = tf.tensor1d([parseInt(kilometros.value)])
+
+            let prediccion = modelo1.predict(tensor).dataSync()
+            
+            prediccion = Math.round(prediccion)
+
+            metros.innerHTML = `${kilometros.value} kilometros son ${prediccion} metros `
+            
+
+            }else{
+            console.log('Intente mas tarde')
+            }
+
+        }
+
+    </script>
+
+    <br>
+    <br>
+    <input id="kilogramos" type="text" placeholder="Ingrese los kilogramos">
+    <br>
+
+    <h2 id="lbl_resultado2"></h2>
+
+    <br>
+    <button onclick="conversion2()" >calcular</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+
+    <script>
+
+        let modelo2 = null;
+
+        // esto es lo primeo que se ejecuta al cargar la pagina
+        ( async ()=>{
+
+        console.log('cargando modelo')
+
+        // "detetien" o "hace esperar" a que cargue por completo el modelo
+        modelo2 = await tf.loadLayersModel('./models1/model.json')
+
+        console.log('modelo cargado correctamente')
+
+        })();
+
+
+        function conversion2()
+        {
+
+        const kilogramos= document.getElementById('kilogramos')
+        const libras = document.getElementById('lbl_resultado2')
+        
+        kilogramos.value
+
+        //asegurarnos que el modelo ya está cargado
+            if( modelo2 != null)
+                {
+
+                const tensor = tf.tensor1d([parseInt(kilogramos.value)])
+
+                let prediccion = modelo2.predict(tensor).dataSync()
+            
+                prediccion = Math.round(prediccion)
+
+                libras.innerHTML = `${kilogramos.value} kilogramos son ${prediccion} libras `           
+                }else
+                {
+                console.log('Intente mas tarde')
+                }
+         }
+
+    </script>
+
+</body>
+
+</html>
